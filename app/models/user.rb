@@ -14,13 +14,14 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false }
             
   validates :password,
-            length: { minimum: 6 }
+            length: { minimum: 6 },
+            allow_blank: true
   
   has_secure_password
   
   # Returns has digest of the given string
   def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrype::Engine.cost
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
   
